@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //https://hiukim.github.io/mind-ar-js-doc/tools/compile/
     const mindarThree = new window.MINDAR.IMAGE.MindARThree({
       container: document.body,
-      imageTargetSrc: "./targets2.mind",
+      imageTargetSrc: "./targets.mind",
     });
 
     const { renderer, scene, camera } = mindarThree;
