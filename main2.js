@@ -15,14 +15,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
     scene.add(light);
 
-    const robot = await loadGLTF("./assets/robot.glb");
-    robot.scene.scale.set(0.01, 0.01, 0.01);
+    // Luz direccional (simula el sol)
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(2, 4, 2);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+
+    // Luz puntual cerca del robot
+    const pointLight = new THREE.PointLight(0xffaa55, 0.5, 5);
+    pointLight.position.set(0, 1, 2);
+    scene.add(pointLight);
+
+    // Luz de relleno suave
+    const fillLight = new THREE.AmbientLight(0xffffff, 0.2);
+    scene.add(fillLight);
+
+    const robot = await loadGLTF("./assets/robot2.glb");
+    robot.scene.scale.set(0.2, 0.2, 0.2);
     robot.scene.position.set(0, 0, 0);
-    robot.scene.rotation.set(0, -1.3, 0);
+    robot.scene.rotation.set(0, 0, 0);
+    // Habilitar sombras en el robot
+    robot.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     const f5 = await loadGLTF("./assets/f5.gltf");
     f5.scene.scale.set(2, 2, 2);
-    f5.scene.position.set(0.3, 0.5, 0.4);
+    f5.scene.position.set(0.3, 1, 0);
 
     // Unes imagen con ancla
     const logosAnchor = mindarThree.addAnchor(0);
@@ -31,12 +55,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const clock = new THREE.Clock();
 
+    // Preparar animaciones para el robot
+    const mixer = new THREE.AnimationMixer(robot.scene);
+    const clips = robot.animations; // Array de AnimationClip
+    console.log('Animaciones disponibles:', clips.map(c => c.name));
+
+    function playAnimation(name, duration = 2000) {
+      console.log('Intentando reproducir animación:', name);
+      const clip = THREE.AnimationClip.findByName(clips, name);
+      if (clip) {
+        const action = mixer.clipAction(clip);
+        action.reset().play();
+        setTimeout(() => action.stop(), duration);
+        console.log('Animación reproducida:', name);
+      } else {
+        console.warn('No se encontró la animación:', name);
+      }
+    }
+    // Exponer la función globalmente para el chat
+    window.playRobotAnimation = playAnimation;
+
     await mindarThree.start();
     renderer.setAnimationLoop(() => {
       // En bucle cada fotograma
       const delta = clock.getDelta();
-      console.log(delta);
-
+      mixer.update(delta); // Actualizar animaciones
       renderer.render(scene, camera);
     });
   };
