@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fillLight = new THREE.AmbientLight(0xffffff, 0.2);
     scene.add(fillLight);
 
-    const robot = await loadGLTF("./assets/robot2.glb");
+    const robot = await loadGLTF("./assets/robot.glb");
     robot.scene.scale.set(0.2, 0.2, 0.2);
     robot.scene.position.set(0, 0, 0);
     robot.scene.rotation.set(0, 0, 0);

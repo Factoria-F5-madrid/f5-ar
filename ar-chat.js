@@ -16,7 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
     chatContainer.style.padding = '16px';
     chatContainer.style.zIndex = '10';
     chatContainer.innerHTML = `
-      <textarea id="ar-chat-input" rows="2" style="width: 100%; font-family: 'Segoe UI', Arial, Helvetica, sans-serif; background: #fff; color: #222;"></textarea>
+      <div id="ar-robot-anim-buttons" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; width: 100%;">
+        <div style="display: flex; gap: 8px; width: 100%;">
+          <button class="ar-chat-btn" data-anim="RobotArmature|Robot_Wave" style="flex: 1 1 0;">👋 Saludar</button>
+          <button class="ar-chat-btn" data-anim="RobotArmature|Robot_Dance" style="flex: 1 1 0;">💃 Bailar</button>
+        </div>
+        <div style="display: flex; gap: 8px; width: 100%;">
+          <button class="ar-chat-btn" data-anim="RobotArmature|Robot_ThumbsUp" style="flex: 1 1 0;">👍 Like</button>
+          <button class="ar-chat-btn" data-anim="RobotArmature|Robot_Jump" style="flex: 1 1 0;">🤸 Saltar</button>
+        </div>
+      </div>
+      <textarea id="ar-chat-input" rows="2" style="width: 100%; font-family: 'Segoe UI', Arial, Helvetica, sans-serif; background: #fff; color: #222; padding: 12px;" placeholder="Cuéntame..."></textarea>
       <div style="margin-top: 8px; display: flex; gap: 8px;">
         <button id="ar-chat-mic" class="ar-chat-btn">🎙️</button>
         <button id="ar-chat-send" class="ar-chat-btn">Enviar</button>
@@ -33,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         color: #ff4700;
         border: none;
         border-radius: 6px;
-        padding: 8px 16px;
+        padding: 4px 8px;
         font-size: 1em;
         font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
         font-weight: 600;
@@ -48,6 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     `;
     document.head.appendChild(style);
+
+    // Lógica para los botones de animación
+    const animBtns = chatContainer.querySelectorAll('#ar-robot-anim-buttons button');
+    animBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const anim = btn.getAttribute('data-anim');
+        if (window.playRobotAnimation) window.playRobotAnimation(anim);
+      });
+    });
   }
 
   const input = document.getElementById('ar-chat-input');
