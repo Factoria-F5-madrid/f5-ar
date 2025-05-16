@@ -58,6 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Animación idle al cargar la página
   if (window.playRobotAnimation) window.playRobotAnimation('RobotArmature|Robot_Idle', 5000);
 
+  // Ocultar el botón de micrófono en iOS
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+  if (isIOS()) {
+    micBtn.style.display = 'none';
+    micBtn.disabled = true;
+  }
+
   // Enviar pregunta al backend IA
   sendBtn.addEventListener('click', function () {
     const message = input.value.trim();
