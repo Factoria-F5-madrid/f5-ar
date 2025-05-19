@@ -3,6 +3,22 @@ import { loadGLTF } from "./libs/loader.js";
 const THREE = window.MINDAR.IMAGE.THREE;
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Crear y mostrar el mensaje en la parte superior con el estilo del input del chat
+  const mensaje = document.createElement('div');
+  mensaje.textContent = 'Escanea el sticker de F5';
+  mensaje.style.position = 'fixed';
+  mensaje.style.top = '0';
+  mensaje.style.left = '0';
+  mensaje.style.width = '100%';
+  mensaje.style.background = 'rgba(255, 71, 0, 0.7)';
+  mensaje.style.color = '#fff';
+  mensaje.style.textAlign = 'center';
+  mensaje.style.padding = '6px 0';
+  mensaje.style.fontFamily = "'Segoe UI', Arial, Helvetica, sans-serif";
+  mensaje.style.fontSize = '1em';
+  mensaje.style.zIndex = '9999';
+  document.body.appendChild(mensaje);
+
   const start = async () => {
     //https://hiukim.github.io/mind-ar-js-doc/tools/compile/
     const mindarThree = new window.MINDAR.IMAGE.MindARThree({
