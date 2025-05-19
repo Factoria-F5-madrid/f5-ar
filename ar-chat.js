@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <button id="ar-chat-mic" class="ar-chat-btn">🎙️</button>
         <button id="ar-chat-send" class="ar-chat-btn">Enviar</button>
       </div>
-      <div id="ar-chat-response" style="margin-top: 12px; min-height: 24px; max-height: 120px; overflow-y: auto; font-family: 'Segoe UI', Arial, Helvetica, sans-serif; font-size: 1.05em; color: #222;"></div>
+      <div id="ar-chat-response" style="margin-top: 12px; min-height: 24px; max-height: 120px; overflow-y: auto; font-family: 'Segoe UI', Arial, Helvetica, sans-serif; font-size: .9em; color: white;"></div>
     `;
     document.body.appendChild(chatContainer);
 

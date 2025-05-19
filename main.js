@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const robot = await loadGLTF("./assets/robot.glb");
     robot.scene.scale.set(0.2, 0.2, 0.2);
     robot.scene.position.set(0, 0, 0);
-    robot.scene.rotation.set(0, 0, 0);
+    robot.scene.rotation.set(.7, 0, 0);
     // Habilitar sombras en el robot
     robot.scene.traverse((child) => {
       if (child.isMesh) {
