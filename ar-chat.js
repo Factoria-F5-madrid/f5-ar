@@ -92,7 +92,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (message) {
       if (window.playRobotAnimation) window.playRobotAnimation('RobotArmature|Robot_Dance');
       responseDiv.textContent = 'Procesando...';
-      fetch('https://webextendida.es/chatCodemotion.php?question=' + encodeURIComponent(message))
+      fetch('https://webextendida.es/chatCodemotion.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'question=' + encodeURIComponent(message)
+      })
         .then(response => response.text())
         .then(text => {
           input.value = '';
