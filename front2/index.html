@@ -1,0 +1,39 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>  
+  <!-- Mensaje de instrucción AR -->
+  <div class="ar-instruction-message">Escanea el sticker de Adoptaunjunior</div>
+  
+  <!-- Contenedor del chat AR -->
+  <div id="ar-chat-container">
+    <!-- Botones de animación del robot -->
+    <div id="ar-robot-anim-buttons">
+      <div>
+        <button class="ar-chat-btn" data-anim="CharacterArmature|Attack">🎯 Atacar</button>
+        <button class="ar-chat-btn" data-anim="CharacterArmature|Run">🏃 Correr</button>
+      </div>
+    </div>
+    
+    <!-- Input del chat -->
+    <textarea id="ar-chat-input" rows="2" placeholder="Cuéntame..."></textarea>
+    
+    <!-- Botones de acción -->
+    <div id="ar-chat-actions">
+      <button id="ar-chat-mic" class="ar-chat-btn">🎙️</button>
+      <button id="ar-chat-send" class="ar-chat-btn">Enviar</button>
+    </div>
+    
+    <!-- Área de respuesta -->
+    <div id="ar-chat-response"></div>
+  </div>
+  
+  <script src="./js/mindar-image-three.prod.js"></script>
+  <script src="./js/main.js" type="module"></script>
+  <script src="./js/ar-chat.js"></script>
+</body>
+</html>

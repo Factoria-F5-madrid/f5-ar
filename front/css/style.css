@@ -1,0 +1,121 @@
+/* Variables CSS para colores del proyecto */
+:root {
+  /* Color principal F5 (naranja) */
+  --color-primary: #ff4700;
+  --color-primary-transparent: rgba(255, 71, 0, 0.7);
+  
+  /* Colores de texto */
+  --color-text-white: #fff;
+  --color-text-dark: #222;
+  
+  /* Colores de fondo */
+  --color-bg-white: #fff;
+  --color-bg-light: #f5f5f5;
+  
+  /* Sombras */
+  --shadow-light: #0001;
+  --shadow-medium: #0002;
+  --shadow-dark: #0003;
+  
+  /* Transiciones */
+  --transition-speed: 0.2s;
+}
+
+html,
+body {
+      position: relative;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+.ar-instruction-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--color-primary-transparent);
+      color: var(--color-text-white);
+      text-align: center;
+      padding: 6px 0;
+      font-size: 1em;
+      z-index: 9999;
+}
+
+#ar-chat-container {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      background: var(--color-primary-transparent);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px var(--shadow-dark);
+      padding: 16px;
+      z-index: 10;
+}
+
+#ar-robot-anim-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 10px;
+      width: 100%;
+}
+
+#ar-robot-anim-buttons > div {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+}
+
+.ar-chat-btn {
+      background: var(--color-bg-white);
+      color: var(--color-primary);
+      border: none;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 1em;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+      box-shadow: 0 1px 3px var(--shadow-light);
+      flex: 1 1 0;
+}
+
+.ar-chat-btn:hover {
+      background: var(--color-primary);
+      color: var(--color-text-white);
+      box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+#ar-chat-input {
+      width: 100%;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      background: var(--color-bg-white);
+      color: var(--color-text-dark);
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      resize: vertical;
+      min-height: 40px;
+}
+
+#ar-chat-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+}
+
+#ar-chat-response {
+      margin-top: 12px;
+      min-height: 24px;
+      max-height: 120px;
+      overflow-y: auto;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      font-size: .9em;
+      color: var(--color-text-white);
+      line-height: 1.4;
+}

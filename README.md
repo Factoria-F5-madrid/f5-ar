@@ -103,7 +103,7 @@ Características:
 
 ### 📊 **Mapa Visual de Tecnologías Inmersivas**
 
-![Tecnologías Inmersivas](assets/inmersivetechs.jpg)
+![Tecnologías Inmersivas](img/inmersivetechs.jpg)
 
 *Diagrama de las tecnologías relacionadas con AR, VR, XR y experiencias inmersivas.*
 
@@ -297,7 +297,7 @@ Pasos de Instalación
 - **Reconocimiento de voz**: Tocar el botón 🎙️ para hablar
 - **Respuestas de IA**: Las respuestas se muestran en texto y se reproducen en voz
 
-![Ejemplo](assets/demo.png)
+![Ejemplo](img/demo.png)
 
 
 <br>
@@ -346,4 +346,37 @@ Modelos 3D
 
 ## 🎯 TODO
 
-- Haz tu experiencia AR y disfruta explorando 🤖 ⭐️
+- **Haz tu experiencia AR y disfruta explorando 🤖 ⭐️**
+
+### 1. Crear Marcador AR
+- Ve a: https://hiukim.github.io/mind-ar-js-doc/tools/compile/
+- Sube una imagen de alta calidad (recomendado: 512x512px o mayor)
+- Descarga el archivo `targets.mind` generado
+- Colócalo en `front/assets/targets.mind`
+
+### 2. Estructura del Proyecto
+- **JavaScript**: `main.js` → `loader.js` → `GLTFLoader.js`
+- **MindAR**: Incluye su propia versión optimizada de Three.js
+- **CSS**: Variables CSS para colores y estilos
+- **HTML**: Estructura semántica con chat AR integrado
+
+### 3. Modelo 3D con Animaciones
+- Selecciona un modelo GLB/GLTF con animaciones
+- Recomendado: https://poly.pizza/m/1gNo5ezvmr
+- Guárdalo en `front/assets/` como `robot.glb`
+- El `main.js` ya está configurado para cargarlo automáticamente
+- **Importante**: Si cambias el nombre del archivo, actualiza la ruta en `main.js`
+
+### 4. Botones de Animación
+- **Consola**: El `main.js` muestra las animaciones disponibles al cargar
+- **HTML**: Los botones ya están configurados en `index.html`
+- **Funcionalidad**: `ar-chat.js` está conectado para reproducir animaciones
+- **Personalización**: Puedes modificar los botones según las animaciones de tu modelo
+
+### 5. Personalización Adicional (Opcional)
+- **Colores**: Modifica las variables CSS en `:root`
+- **Modelos**: Agrega más modelos 3D al proyecto
+- **Animaciones**: Personaliza los botones según tu modelo
+- **Chat**: Modifica `ar-chat.js` para más interacciones
+
+

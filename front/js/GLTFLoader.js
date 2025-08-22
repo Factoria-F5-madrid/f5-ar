@@ -1,4 +1,4 @@
-import {
+const {
 	AnimationClip,
 	Bone,
 	Box3,
@@ -62,7 +62,8 @@ import {
 	Vector3,
 	VectorKeyframeTrack,
 	sRGBEncoding
-} from './three.module.js';
+} = window.MINDAR.IMAGE.THREE;
+
 
 class GLTFLoader extends Loader {
 

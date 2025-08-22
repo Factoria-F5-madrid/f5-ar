@@ -1,7 +1,6 @@
 import { GLTFLoader } from "./GLTFLoader.js";
-import * as THREE from "./three.module.js";
 
-//const THREE = window.MINDAR.IMAGE? window.MINDAR.IMAGE.THREE: window.MINDAR.FACE.THREE;
+const THREE = window.MINDAR.IMAGE.THREE;
 
 export const loadGLTF = (path) => {
   return new Promise((resolve, reject) => {
