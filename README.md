@@ -237,19 +237,45 @@ La experiencia AR con Factoría F5 es una aplicación web de realidad aumentada 
 
 ```
 f5-ar/
-├── index.html              # Punto de entrada HTML
-├── main.js                 # Lógica principal de AR
-├── ar-chat.js             # Sistema de chat y animaciones
-├── targets.mind            # Archivos para MindAR
-├── assets/                 # Modelos 3D y recursos
-│   ├── robot.glb          # Modelo del robot (392KB)
-│   └── f5.gltf            # Logo de F5 (2.1MB)
-└── libs/                   # Librerías y utilidades
-    ├── mindar/             # Code MindAR
-    ├── GLTFLoader.js       # Cargador de modelos 3D
-    ├── loader.js           # Utilidades de carga
-    └── three.module.js     # Motor de gráficos 3D
+├── front/                  # Frontend AR (experiencia principal)
+│   ├── index.html         # Punto de entrada HTML
+│   ├── css/
+│   │   └── style.css      # Estilos con variables CSS
+│   ├── js/
+│   │   ├── main.js        # Lógica principal de AR (MindAR + Three.js)
+│   │   ├── ar-chat.js     # Sistema de chat y animaciones
+│   │   ├── loader.js      # Utilidades de carga de modelos 3D
+│   │   └── GLTFLoader.js  # Cargador de modelos GLTF/GLB
+│   └── assets/            # Modelos 3D y recursos
+│       ├── robot.glb      # Modelo del robot con animaciones
+│       ├── f5.gltf        # Logo de F5
+│       └── targets.mind   # Marcadores AR compilados
+├── back/                   # Backend Node.js (reemplaza PHP)
+│   ├── server.js          # Servidor Express con OpenAI
+│   ├── package.json       # Dependencias Node.js
+│   ├── .env               # Variables de entorno (API keys)
+│   └── README.md          # Documentación del backend
+└── front2/                 # Versión alternativa del frontend
+    ├── index.html         # Variante con diferentes colores
+    ├── css/
+    │   └── style.css      # Estilos con esquema de colores alternativo
+    └── js/                # Mismos archivos JS que front/
 ```
+
+### 🔄 Flujo de Datos
+
+```
+Usuario → Frontend AR → Backend Node.js → OpenAI API → Respuesta IA → Chat AR
+```
+
+### 🚀 Tecnologías Utilizadas
+
+- **Frontend**: HTML5, CSS3, JavaScript ES6+
+- **AR**: MindAR (web-based AR framework)
+- **3D**: Three.js (integrado en MindAR)
+- **Backend**: Node.js + Express
+- **IA**: OpenAI GPT-3.5-turbo
+- **Comunicación**: REST API + Web Speech API
 
 > [!TIP]
 > 📦 **Formatos 3D**: GLB y GLTF son como los "JPG del 3D" - formatos estándar que permiten compartir modelos 3D de manera eficiente y compatible con la web.
@@ -379,4 +405,73 @@ Modelos 3D
 - **Animaciones**: Personaliza los botones según tu modelo
 - **Chat**: Modifica `ar-chat.js` para más interacciones
 
+### 6. Conexión con el Backend
+
+#### **Opción A: Backend Node.js Local (Recomendado)**
+```bash
+# 1. Instalar dependencias
+cd back
+npm install
+
+# 2. Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tu API key de OpenAI
+
+# 3. Ejecutar servidor
+npm run dev
+```
+
+**Ventajas**: Control total, debugging fácil, desarrollo local
+
+#### **Opción B: Backend PHP Externo (Fallback)**
+```javascript
+// En front/js/ar-chat.js, comentar Node.js y descomentar PHP
+/*
+fetch('http://localhost:3000/chat', { ... });  // Comentar
+*/
+
+fetch('https://webextendida.es/chatCodemotion.php', { ... });  // Descomentar
+```
+
+**Ventajas**: No requiere servidor local, siempre disponible
+
+#### **🔄 Cambiar Entre Opciones:**
+El `ar-chat.js` ya tiene ambas opciones comentadas para facilitar el cambio.
+
+### 7. Optimización del Agente IA
+
+#### **🚨 Limitaciones del Sistema Actual**
+- **Modelo**: GPT-3.5-turbo (chat/completions)
+- **Problema**: Solo acepta texto en el prompt
+- **Limitación**: Para PDFs, CSVs o archivos, debes "pegar" todo el contenido
+- **Consecuencia**: Muy ineficiente y costoso
+
+#### **🚀 Mejoras Recomendadas**
+
+##### **Opción 1: Assistants API (Recomendado)**
+- **Nueva API de OpenAI** diseñada específicamente para crear agentes
+- **Soporte nativo** para cargar archivos (PDFs, CSVs, textos)
+- **Modelo más avanzado**: GPT-4 en lugar de GPT-3.5
+- **Contexto persistente** entre conversaciones
+- **Herramientas integradas** como búsqueda en archivos
+
+##### **Opción 2: File Upload + Referencia**
+- **Subir archivos** al endpoint `/v1/files` de OpenAI
+- **Obtener file_id** que identifica el archivo
+- **Referenciar el archivo** en cada conversación sin enviarlo completo
+- **Reducir costos** significativamente al no repetir contenido
+
+##### **Opción 3: Vector Store (Para Muchos Archivos)**
+- **Ideal para proyectos grandes**: 100+ PDFs o documentos muy extensos
+- **Búsqueda inteligente**: El motor recupera solo los fragmentos relevantes
+- **Vector store ID**: Una vez creado, se reutiliza para todas las consultas
+- **Máxima eficiencia**: No adjuntas archivos completos en cada petición
+- **Escalabilidad**: Perfecto para bases de conocimiento extensas
+
+##### **Opción 4: Function Calling (Llamadas a APIs)**
+- **Conectar con sistemas externos**: CRM, bases de datos, APIs de terceros
+- **Datos en tiempo real**: Información actualizada al momento
+- **Acciones automatizadas**: Crear tickets, enviar emails, actualizar registros
+- **Integración completa**: El chatbot puede realizar tareas reales
+- **Ejemplos para F5**: Consultar disponibilidad de cursos, inscribir estudiantes, obtener horarios
 

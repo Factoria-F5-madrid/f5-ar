@@ -84,6 +84,36 @@ function setupChatFunctionality() {
  * @param {HTMLElement} input - Input del chat para limpiarlo
  */
 function sendMessageToAI(message, responseDiv, input) {
+  // OPCIÓN 1: Backend Node.js local (recomendado)
+  fetch('http://localhost:3000/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      question: message
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Limpiar input y mostrar respuesta
+    input.value = '';
+    
+    // Reproducir animación de saludo
+    if (window.playRobotAnimation) {
+      window.playRobotAnimation('RobotArmature|Robot_Wave');
+    }
+    
+    // Mostrar respuesta y reproducir audio
+    responseDiv.textContent = data.response;
+    speak(data.response);
+  })
+  .catch((error) => {
+    responseDiv.textContent = 'Ocurrió un error: ' + error.message;
+  });
+
+  // OPCIÓN 2: Backend PHP externo (comentado)
+  /*
   fetch('https://webextendida.es/chatCodemotion.php', {
     method: 'POST',
     headers: {
@@ -108,6 +138,7 @@ function sendMessageToAI(message, responseDiv, input) {
   .catch((error) => {
     responseDiv.textContent = 'Ocurrió un error: ' + error.message;
   });
+  */
 }
 
 /**
