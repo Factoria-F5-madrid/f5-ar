@@ -85,6 +85,10 @@ Características:
 - ✅ Incluye AR, VR, MR (Realidad Mixta)
 - ✅ Evoluciona constantemente con nuevas tecnologías
 
+<img width="1070" height="520" alt="Captura de pantalla 2025-10-02 a las 16 07 24" src="https://github.com/user-attachments/assets/00d67881-8040-4b6c-9270-f12bb6380964" />
+
+
+<br>
 <br>
 
 ⚠️ **Distinciones Importantes**
@@ -94,7 +98,7 @@ Características:
 | Concepto | Definición | Ejemplo |
 |----------|------------|---------|
 | **3D** | Gráficos tridimensionales | Modelo 3D de una casa |
-| **Inmersivo** | Experiencia envolvente | AR que te rodea |
+| **Inmersivo** | Experiencia envolvente | VR que te rodea |
 | **Metaverso** | Interacción entre usuarios | Roblox, Second Life |
 
 **💡 Clave**: El **3D** es solo la **forma**, lo **inmersivo** es la **experiencia**, y el **metaverso** es la **socialización**.
@@ -102,6 +106,16 @@ Características:
 <br>
 
 ### 📊 **Mapa Visual de Tecnologías Inmersivas**
+
+### Hay dos tipos:
+
+#### Native:
+
+Aplicación que requiere un aparato especial (ej: visores Meta) y una app especial para desarrollar con un framework específico, Unity, unreal
+
+#### Web:
+
+Aplicaciones que se pueden ver en web, no necesita nada mas que un móvil o una computadora.
 
 ![Tecnologías Inmersivas](img/inmersivetechs.jpg)
 
