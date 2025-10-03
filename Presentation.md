@@ -118,11 +118,12 @@ Características:
 
 ## 🌟 Ejemplos Reales: Casos de Uso en el Mundo
 
- 🚀 **NASA: IA + Visualización 3D** : [NASA Engineers Help Create a Virtual World of Data](https://www.nasa.gov/feature/nasa-engineers-help-create-a-virtual-world-of-data)
+ 🚀 **NASA: IA + Visualización 3D** : [NASA Engineers Help Create a Virtual World of Data](https://www.nasa.gov/technology/tech-transfer-spinoffs/nasa-engineers-help-create-a-virtual-world-of-data/)
 
- 🏥 **Philips**: [Philips Instrucciones de Primeros Auxilios en Vivo](https://www.philips.com/a-w/about/news/archive/standard/news/press/2018/20181218-philips-helps-first-responders-save-lives-with-augmented-reality.html)
+ 🏥 **Philips**: [Philips Instrucciones de Primeros Auxilios en Vivo](https://www.youtube.com/watch?v=z3owLTiEGJ4&t=99s)
 
-🏥 **Hospital de Bellvitge: VR para Pacientes**: [La Realidad Virtual Reduce el Dolor](https://www.bellvitgehospital.cat/es/noticias/la-realidad-virtual-reduce-el-dolor-y-ansiedad-en-pacientes-de-uci)
+🏥 **Hospital de Bellvitge: VR para Pacientes**: [La Realidad Virtual Reduce el Dolor](https://bellvitgehospital.cat/es/actualidad/noticia/la-realidad-virtual-reduce-el-dolor-y-la-ansiedad-de-los-pacientes-de-la-uci-en)
+
 
 🏛️ **Pirámide de Meroe: AR Cultural** [**Proyecto**: Pirámide de Meroe](https://artsexperiments.withgoogle.com/meroe/)
 
