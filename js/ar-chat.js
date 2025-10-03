@@ -112,16 +112,48 @@ function sendMessageToAI(message, responseDiv, input) {
       //   responseDiv.textContent = 'Ocurrió un error: ' + error.message;
       // });
 
-      // OPCIÓN 2: Backend PHP externo (comentado)
-      fetch('https://webextendida.es/chatCodemotion.php', {
+      // OPCIÓN 2: Backend PHP externo
+      fetch('https://webextendida.es/chatRobitAR.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: 'question=' + encodeURIComponent(message)
       })
-      .then(response => response.text())
+      .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+          // Manejo específico para diferentes códigos de error
+          if (response.status === 429) {
+            throw new Error('Límite de solicitudes excedido. Por favor, espera un momento y vuelve a intentar.');
+          } else if (response.status === 401) {
+            throw new Error('Error de autenticación. Verifica la configuración de la API.');
+          } else if (response.status === 500) {
+            throw new Error('Error interno del servidor. Inténtalo más tarde.');
+          } else {
+            throw new Error(`Error del servidor (${response.status}). Inténtalo más tarde.`);
+          }
+        }
+        
+        return response.text();
+      })
       .then(text => {
+        console.log('Response text:', text);
+        
+        // Intentar parsear como JSON por si hay errores
+        try {
+          const jsonResponse = JSON.parse(text);
+          if (jsonResponse.error) {
+            throw new Error(jsonResponse.error);
+          }
+          // Si no hay error, usar el texto tal como viene
+        } catch (e) {
+          // Si no es JSON válido, continuar con el texto tal como viene
+          console.log('Response is not JSON, using as plain text');
+        }
+        
         // Limpiar input y mostrar respuesta
         input.value = '';
         
@@ -135,7 +167,19 @@ function sendMessageToAI(message, responseDiv, input) {
         speak(text);
       })
       .catch((error) => {
-        responseDiv.textContent = 'Ocurrió un error: ' + error.message;
+        console.error('Error en fetch:', error);
+        
+        // Usar respuesta de fallback para errores de API
+        const fallbackResponse = getFallbackResponse(message);
+        responseDiv.textContent = fallbackResponse;
+        
+        // Reproducir animación de error
+        if (window.playRobotAnimation) {
+          window.playRobotAnimation('RobotArmature|Robot_Idle');
+        }
+        
+        // Reproducir audio de la respuesta de fallback
+        speak(fallbackResponse);
       });
 }
 
@@ -203,4 +247,45 @@ function speak(text) {
   utter.pitch = 1;           // Tono normal
   
   window.speechSynthesis.speak(utter);
+}
+
+/**
+ * Genera respuestas de fallback cuando la API no está disponible
+ * @param {string} message - Mensaje del usuario
+ * @returns {string} Respuesta de fallback
+ */
+function getFallbackResponse(message) {
+  const messageLower = message.toLowerCase();
+  
+  // Respuestas específicas basadas en palabras clave
+  if (messageLower.includes('hola') || messageLower.includes('saludar')) {
+    return '¡Hola! Soy Robit, tu asistente virtual de Factoria F5. Aunque mi API principal no está disponible ahora, estoy aquí para ayudarte. ¿En qué puedo asistirte?';
+  }
+  
+  if (messageLower.includes('factoria') || messageLower.includes('f5')) {
+    return 'Factoria F5 ofrece formación tecnológica intensiva, gratuita y de calidad en las competencias más demandadas del sector tech, junto con acompañamiento hacia la empleabilidad IT. Tenemos presencia en Cataluña, Madrid, Asturias, la zona norte de España y la Comunidad Valenciana.';
+  }
+  
+  if (messageLower.includes('programación') || messageLower.includes('programar') || messageLower.includes('código')) {
+    return '¡Excelente! En Factoria F5 ofrecemos formación en programación en diferentes tecnologías como JavaScript, Python, Java, y muchas más. Nuestros cursos son intensivos, gratuitos y te preparan para el mercado laboral tech.';
+  }
+  
+  if (messageLower.includes('trabajo') || messageLower.includes('empleo') || messageLower.includes('laboral')) {
+    return 'En Factoria F5 no solo te formamos técnicamente, sino que también te acompañamos hacia la empleabilidad IT. Nuestro programa incluye preparación para entrevistas, creación de portfolio y conexión con empresas del sector.';
+  }
+  
+  if (messageLower.includes('curso') || messageLower.includes('formación') || messageLower.includes('estudiar')) {
+    return 'Nuestros cursos en Factoria F5 son intensivos, gratuitos y de alta calidad. Cubrimos las tecnologías más demandadas del sector tech y te acompañamos durante todo el proceso de aprendizaje y búsqueda de empleo.';
+  }
+  
+  if (messageLower.includes('tecnología') || messageLower.includes('tech') || messageLower.includes('digital')) {
+    return 'El sector tecnológico está en constante crecimiento y necesita talento. En Factoria F5 te formamos en las competencias más demandadas para que puedas acceder a este mercado laboral lleno de oportunidades.';
+  }
+  
+  if (messageLower.includes('codemotion') || messageLower.includes('evento')) {
+    return '¡Estamos en Codemotion! Es un placer estar aquí compartiendo nuestra pasión por la tecnología y la formación. Factoria F5 cree en democratizar el acceso a la educación tech de calidad.';
+  }
+  
+  // Respuesta genérica para cualquier otra consulta
+  return '¡Hola! Soy Robit de Factoria F5. Aunque mi sistema principal está temporalmente ocupado, puedo ayudarte con información básica sobre nuestros cursos de programación, formación gratuita y acompañamiento hacia la empleabilidad IT. ¿Hay algo específico que te gustaría saber?';
 } 
