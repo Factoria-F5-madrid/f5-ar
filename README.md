@@ -24,43 +24,46 @@ La experiencia AR con Factoría F5 es una aplicación web de realidad aumentada 
 
 💬 Sistema de Chat IA
 - **Interfaz de chat**
-- **Reconocimiento de voz** (español) 
-- **Síntesis de voz** para respuestas
+- **Reconocimiento de voz** (español) (API del navegador)
+- **Síntesis de voz** para respuestas (API del navegador)
 - **Integración con backend de IA**
 
 ### 🏗️ Arquitectura del Proyecto
 
 ```
 f5-ar/
-├── front/                  # Frontend AR (experiencia principal)
-│   ├── index.html         # Punto de entrada HTML
-│   ├── css/
-│   │   └── style.css      # Estilos con variables CSS
-│   ├── js/
-│   │   ├── main.js        # Lógica principal de AR (MindAR + Three.js)
-│   │   ├── ar-chat.js     # Sistema de chat y animaciones
-│   │   ├── loader.js      # Utilidades de carga de modelos 3D
-│   │   └── GLTFLoader.js  # Cargador de modelos GLTF/GLB
-│   └── assets/            # Modelos 3D y recursos
-│       ├── robot.glb      # Modelo del robot con animaciones
-│       ├── f5.gltf        # Logo de F5
-│       └── targets.mind   # Marcadores AR compilados
-├── back/                   # Backend Node.js
-│   ├── server.js          # Servidor Express con OpenAI
-│   ├── package.json       # Dependencias Node.js
-│   ├── .env               # Variables de entorno (API keys)
-│   └── README.md          # Documentación del backend
-└── front2/                 # Versión alternativa del frontend
-    ├── index.html         # Variante con diferentes colores
-    ├── css/
-    │   └── style.css      # Estilos con esquema de colores alternativo
-    └── js/                # Mismos archivos JS que front/
+├── index.html             # Punto de entrada HTML principal
+├── css/
+│   └── style.css          # Estilos con variables CSS
+├── js/                    # Scripts JavaScript
+│   ├── main.js           # Lógica principal de AR (MindAR + Three.js)
+│   ├── ar-chat.js        # Sistema de chat con IA y animaciones
+│   ├── loader.js         # Utilidades de carga de modelos 3D
+│   ├── GLTFLoader.js     # Cargador de modelos GLTF/GLB
+│   └── mindar-image-three.prod.js  # Librería MindAR compilada
+├── assets/               # Modelos 3D y recursos AR
+│   ├── robot.glb         # Modelo del robot con animaciones
+│   ├── f5.gltf          # Logo de F5
+│   ├── targets.mind     # Marcadores AR compilados
+│   ├── targets.png      # Imagen de los marcadores AR
+│   └── sticker-qrs.pdf  # PDF con códigos QR para marcadores
+├── img/                  # Imágenes del proyecto
+│   ├── demo.png         # Imagen de demostración
+│   └── inmersivetechs.jpg # Logo de Inmersive Techs
+├── back/                 # Backend Node.js
+│   ├── server.js        # Servidor Express con OpenAI
+│   ├── package.json     # Dependencias Node.js
+│   ├── package-lock.json # Lock file de dependencias
+│   └── README.md        # Documentación del backend
+├── Presentation.md       # Documentación de presentación
+├── Presentation.pdf      # PDF de presentación
+└── README.md            # Este archivo de documentación
 ```
 
 ### 🔄 Flujo de Datos
 
 ```
-Usuario → Frontend AR → Backend Node.js → OpenAI API → Respuesta IA → Chat AR
+Usuario → Frontend AR → Backend → OpenAI API → Respuesta IA → Chat AR
 ```
 
 ### 🚀 Tecnologías Utilizadas
@@ -76,12 +79,12 @@ Usuario → Frontend AR → Backend Node.js → OpenAI API → Respuesta IA → 
 
 ### 🚀 Instalación
 
-Prerrequisitos
+**Prerrequisitos:**
 - Navegador web moderno con soporte para WebGL
-- Dispositivo con cámara (móvil recomendado)
+- Dispositivo con cámara 
 - Conexión a internet para el chat IA
 
-Pasos de Instalación
+**Pasos de Instalación:**
 
 1. **Clonar el repositorio**
    ```bash
@@ -89,23 +92,37 @@ Pasos de Instalación
    cd f5-ar
    ```
 
-2. **Servir los archivos**: Con el Visual code o similar montar un server y abrir el index
+2. **Configurar el servidor web**
+   - Usar un servidor HTTP local (Live Server de VS Code, Python http.server, etc.)
+   - **Importante**: No abrir directamente el `index.html` en el navegador
+   - La aplicación requiere un servidor web para funcionar correctamente
+
+3. **Acceder a la aplicación**
+   - Abrir `http://localhost:[puerto]/index.html`
+   - Permitir acceso a la cámara cuando se solicite
 
 ### 📱 Uso
 
-1. Activación de AR
-- **Abrir la aplicación** 
-- **Permitir acceso a la cámara**
-- **Apuntar la cámara** al sticker de F5
-- **Esperar a que se detecte** la imagen objetivo
+**1. Activación de AR**
+- Abrir la aplicación en el navegador
+- Permitir acceso a la cámara cuando se solicite
+- Apuntar la cámara al sticker/marcador de F5
+- Esperar a que se detecte la imagen objetivo
+- El robot 3D aparecerá superpuesto en el marcador
 
-2. Interacción con el Robot
-- **Botones de animación**: Usar los botones en el chat para activar animaciones
-- **Chat de texto**: Escribir preguntas en el campo de texto
-- **Reconocimiento de voz**: Tocar el botón 🎙️ para hablar
-- **Respuestas de IA**: Las respuestas se muestran en texto y se reproducen en voz
+**2. Interacción con el Robot**
+- **Botones de animación**: Usar los botones en la interfaz para activar diferentes animaciones del robot
+- **Chat de texto**: Escribir preguntas en el campo de texto del chat
+- **Reconocimiento de voz**: Tocar el botón 🎙️ para dictar mensajes
+- **Respuestas de IA**: Las respuestas se muestran en texto y se reproducen automáticamente en voz
+- **Síntesis de voz**: Las respuestas se convierten automáticamente en audio
 
-![Ejemplo](img/demo.png)
+**3. Funcionalidades del Chat**
+- **Respuestas inteligentes**: El robot responde preguntas sobre Factoria F5, programación y tecnología
+- **Fallback offline**: Si la API de IA no está disponible, usa respuestas predefinidas
+- **Animaciones sincronizadas**: Las animaciones del robot se coordinan con las respuestas
+
+![Ejemplo de uso](img/demo.png)
 
 ## 📚 Recursos y Herramientas
 
@@ -142,7 +159,7 @@ Modelos 3D
 
 **[Android XR](https://www.android.com/xr/)** - Plataforma oficial de Google para experiencias inmersivas
 
-## 🎯 TODO
+## 🎯 Taller
 
 - **Haz tu experiencia AR y disfruta explorando 🤖 ⭐️**
 
@@ -150,32 +167,33 @@ Modelos 3D
 - Ve a: https://hiukim.github.io/mind-ar-js-doc/tools/compile/
 - Sube una imagen de alta calidad (recomendado: 512x512px o mayor)
 - Descarga el archivo `targets.mind` generado
-- Colócalo en `front/assets/targets.mind`
+- Colócalo en `assets/targets.mind`
 
 ### 2. Estructura del Proyecto
-- **JavaScript**: `main.js` → `loader.js` → `GLTFLoader.js`
-- **MindAR**: Incluye su propia versión optimizada de Three.js
-- **CSS**: Variables CSS para colores y estilos
-- **HTML**: Estructura semántica con chat AR integrado
+- **JavaScript**: `js/main.js` → `js/loader.js` → `js/GLTFLoader.js`
+- **Chat**: `js/ar-chat.js` maneja la interfaz de chat y animaciones
+- **MindAR**: `js/mindar-image-three.prod.js` incluye su propia versión optimizada de Three.js
+- **CSS**: `css/style.css` con variables CSS para colores y estilos
+- **HTML**: `index.html` con estructura semántica y chat AR integrado
 
 ### 3. Modelo 3D con Animaciones
 - Selecciona un modelo GLB/GLTF con animaciones
 - Recomendado: https://poly.pizza/m/1gNo5ezvmr
-- Guárdalo en `front/assets/` como `robot.glb`
-- El `main.js` ya está configurado para cargarlo automáticamente
-- **Importante**: Si cambias el nombre del archivo, actualiza la ruta en `main.js`
+- Guárdalo en `assets/` como `robot.glb`
+- El `js/main.js` ya está configurado para cargarlo automáticamente
+- **Importante**: Si cambias el nombre del archivo, actualiza la ruta en `js/main.js`
 
 ### 4. Botones de Animación
-- **Consola**: El `main.js` muestra las animaciones disponibles al cargar
+- **Consola**: El `js/main.js` muestra las animaciones disponibles al cargar
 - **HTML**: Los botones ya están configurados en `index.html`
-- **Funcionalidad**: `ar-chat.js` está conectado para reproducir animaciones
+- **Funcionalidad**: `js/ar-chat.js` está conectado para reproducir animaciones
 - **Personalización**: Puedes modificar los botones según las animaciones de tu modelo
 
 ### 5. Personalización Adicional (Opcional)
-- **Colores**: Modifica las variables CSS en `:root`
-- **Modelos**: Agrega más modelos 3D al proyecto
-- **Animaciones**: Personaliza los botones según tu modelo
-- **Chat**: Modifica `ar-chat.js` para más interacciones
+- **Colores**: Modifica las variables CSS en `css/style.css` en la sección `:root`
+- **Modelos**: Agrega más modelos 3D al proyecto en `assets/`
+- **Animaciones**: Personaliza los botones según tu modelo en `js/ar-chat.js`
+- **Chat**: Modifica `js/ar-chat.js` para más interacciones y respuestas de fallback
 
 ### 6. Conexión con el Backend
 
@@ -186,12 +204,16 @@ cd back
 npm install
 
 # 2. Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tu API key de OpenAI
+# Crear archivo .env con tu API key de OpenAI
+echo "OPENAI_API_KEY=tu_api_key_aqui" > .env
 
 # 3. Ejecutar servidor
 npm run dev
 ```
+
+**Configuración del Frontend:**
+- En `js/ar-chat.js`, descomenta la opción 1 (backend Node.js local)
+- Comenta la opción 2 (backend PHP externo)
 
 **Ventajas**: Control total, debugging fácil, desarrollo local
 
@@ -205,30 +227,12 @@ npm run dev
 
 #### **🚀 Mejoras Recomendadas**
 
-##### **Opción 1: Assistants API (Recomendado)**
-- **Nueva API de OpenAI** diseñada específicamente para crear agentes
-- **Soporte nativo** para cargar archivos (PDFs, CSVs, textos)
-- **Modelo más avanzado**: GPT-4 en lugar de GPT-3.5
-- **Contexto persistente** entre conversaciones
-- **Herramientas integradas** como búsqueda en archivos
+**Opciones de IA:**
+- **Grok** (más económico y con prueba gratuita): https://grok.com/
+- **OpenAI Assistants API** (GPT-4 + archivos)
+- **Vector Store** (para muchos documentos)
+- **Function Calling** (APIs externas)
 
-##### **Opción 2: File Upload + Referencia**
-- **Subir archivos** al endpoint `/v1/files` de OpenAI
-- **Obtener file_id** que identifica el archivo
-- **Referenciar el archivo** en cada conversación sin enviarlo completo
-- **Reducir costos** significativamente al no repetir contenido
+**Y por supuesto... ¡apuntarse a un Bootcamp de F5!** 🚀 
 
-##### **Opción 3: Vector Store (Para Muchos Archivos)**
-- **Ideal para proyectos grandes**: 100+ PDFs o documentos muy extensos
-- **Búsqueda inteligente**: El motor recupera solo los fragmentos relevantes
-- **Vector store ID**: Una vez creado, se reutiliza para todas las consultas
-- **Máxima eficiencia**: No adjuntas archivos completos en cada petición
-- **Escalabilidad**: Perfecto para bases de conocimiento extensas
-
-##### **Opción 4: Function Calling (Llamadas a APIs)**
-- **Conectar con sistemas externos**: CRM, bases de datos, APIs de terceros
-- **Datos en tiempo real**: Información actualizada al momento
-- **Acciones automatizadas**: Crear tickets, enviar emails, actualizar registros
-- **Integración completa**: El chatbot puede realizar tareas reales
-- **Ejemplos para F5**: Consultar disponibilidad de cursos, inscribir estudiantes, obtener horarios
 
